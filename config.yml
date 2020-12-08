@@ -1,0 +1,47 @@
+health-name: "生命"
+damage-name: "攻击"
+forge-rate-name: "福星"
+effects:
+  SPEED: "疾行"
+  JUMP: "灵敏"
+  SLOW: "致残"
+  FAST_DIGGING: "急迫"
+  SLOW_DIGGING: "挖掘疲劳"
+  INCREASE_DAMAGE: "力量"
+  HEAL: "愈合"
+  HARM: "瞬间伤害"
+  REGENERATION: "回春"
+  DAMAGE_RESISTANCE: "抗性"
+  FIRE_RESISTANCE: "防火"
+  WATER_BREATHING: "水下呼吸"
+  INVISIBILITY: "潜行"
+  BLINDNESS: "致盲"
+  NIGHT_VISION: "天眼"
+  HUNGER: "饥饿"
+  WEAKNESS: "虚弱"
+  POISON: "中毒"
+  WITHER: "凋零"
+  ABSORPTION: "伤害吸收"
+  SATURATION: "饱和"
+  HEALTH_BOOST: "命魂"
+  CONFUSION: "反胃"
+addon-inv:
+  soul:
+    inv-title: "§6§l≮§e§l虚屿§6§l≯§4§l灵魂·内景"
+    lore-key: "内景"
+  tj:
+    inv-title: "§6§l≮§e§l虚屿§6§l≯§4§l奇闻·图鉴"
+    lore-key: "图鉴"
+  sg:
+    inv-title: "§6§l≮§e§l虚屿§6§l≯§4§l不朽·神格"
+    lore-key: "神格"
+
+buff:
+    damage:
+      display: "增加自身攻击力"
+    health:
+      display: "生命值上限"
+    forge:
+      display: "锻造成功率"
+    expPlus:
+      display: "经验加成"

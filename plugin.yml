@@ -1,0 +1,11 @@
+name: Jewelry
+version: 1.0-SNAPSHOT
+main: org.yunshanmc.custom.jewelry.Jewelry
+authors: [YunShan]
+
+depend: [ProtocolLib]
+softDepend: [RPG_Items]
+
+commands:
+  jewelry: {}
+  buff:
