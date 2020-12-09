@@ -31,9 +31,11 @@ public class BuffPlayerData {
             String buffName = it.next();
             if(buffMap.get(buffName) - 1 < 0){
                 buffMap.remove(buffName);
-                buffs.remove(buffName);
+                buffs.remove(Buff.getBuffNameByOName(buffName));
             }else{
-                if(buffs.get(buffName).isNeedOnline()){
+                //player.sendMessage("buffName " + buffName);
+                //player.sendMessage("buffget " + Buff.getBuffNameByOName(buffName));
+                if(buffs.get(Buff.getBuffNameByOName(buffName)).isNeedOnline()){
                     if(player != null && player.isOnline()){
                         buffMap.put(buffName,buffMap.get(buffName) - 1);
                     }
@@ -46,6 +48,7 @@ public class BuffPlayerData {
             String keyName = buff.getName();
             if(keyName.equals("damage")){
                 addDamage = buff.getData();
+                //player.sendMessage("你当前拥有 " + Buff.getBuffNameByDisplay("damage") + " " + buff.getData());
             }else if(keyName.equals("health")){
                 addHealth = buff.getData();
             }else if(keyName.equals("forge")){
@@ -75,11 +78,11 @@ public class BuffPlayerData {
         return buffMap.keySet();
     }
     public void addBuff(Buff buff,int time){
-        buffMap.put(buff.getName(),time);
+        buffMap.put(Buff.getBuffNameByDisplay(buff.getName()),time);
         buffs.put(buff.getName(),buff);
     }
     public void removeBuff(Buff buff){
-        buffMap.remove(buff.getName());
+        buffMap.remove(Buff.getBuffNameByDisplay(buff.getName()));
         buffs.remove(buff.getName());
     }
 

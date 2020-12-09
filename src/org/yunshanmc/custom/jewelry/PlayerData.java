@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -62,6 +64,11 @@ public class PlayerData {
     }
 
     public int getDamage() {
+        //Bukkit.getPlayer(playerName).sendMessage("你当前是否可获取攻击力 " + (BuffPlayerData.getPlayerData(playerName) != null));
+        //if(BuffPlayerData.getPlayerData(playerName) != null) {
+        //   Bukkit.getPlayer(playerName).sendMessage("你当前攻击力加成 " + BuffPlayerData.getPlayerData(playerName).getAddDamage());
+        //    Bukkit.getPlayer(playerName).sendMessage("当前getDamage 返回 " + (BuffPlayerData.getPlayerData(playerName) != null ? this.damage + BuffPlayerData.getPlayerData(playerName).getAddDamage() : this.damage));
+        //}
         return BuffPlayerData.getPlayerData(playerName) != null ? this.damage + BuffPlayerData.getPlayerData(playerName).getAddDamage() : this.damage;
     }
 

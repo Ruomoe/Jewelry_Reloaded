@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Jewelry_Reloaded">
+    <output-path>$PROJECT_DIR$/out/artifacts/Jewelry_Reloaded</output-path>
+    <root id="archive" name="Jewelry_Reloaded.jar">
+      <element id="module-output" name="Jewelry_Reloaded" />
+      <element id="file-copy" path="$PROJECT_DIR$/config.yml" />
+      <element id="file-copy" path="$PROJECT_DIR$/plugin.yml" />
+    </root>
+  </artifact>
+</component>

@@ -32,6 +32,16 @@ public class Buff {
     public static String getBuffNameByDisplay(String buffName){
         return changeMap.get(buffName);
     }
+    public static String getBuffNameByOName(String display){
+        String buffName = null;
+        for(String tempName : changeMap.keySet()){
+            if(changeMap.get(tempName).equals(display)){
+                buffName = tempName;
+                break;
+            }
+        }
+        return buffName;
+    }
     public static void putBuffDisplayName(String buffDisName,Buff buff){
         buffMap.put(buffDisName,buff);
         changeMap.put(buff.getName(),buffDisName);
