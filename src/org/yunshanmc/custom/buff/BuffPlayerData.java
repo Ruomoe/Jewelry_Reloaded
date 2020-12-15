@@ -2,6 +2,7 @@ package org.yunshanmc.custom.buff;
 
 import org.bukkit.entity.Player;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
@@ -115,6 +116,18 @@ public class BuffPlayerData {
     public void addBuffPackage(BuffPackage buffPackage,int time){
         buffPackages.put(buffPackage.getName(),buffPackage);
         buffPackageTime.put(buffPackage.getName(),time);
+    }
+    public int getBuffTime(String buffName){
+        return buffMap.get(buffName);
+    }
+    public int getBuffPackageTime(String packageName){
+        return buffPackageTime.get(packageName);
+    }
+    public HashMap<String,BuffPackage> getBuffPackageMap(){
+        return buffPackages;
+    }
+    public Collection<Buff> getBuffs(){
+        return buffs.values();
     }
     public static void addPlayerData(String playerName,BuffPlayerData data){
         playerDataMap.put(playerName,data);

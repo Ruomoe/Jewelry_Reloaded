@@ -21,15 +21,16 @@ public class BuffCommands implements CommandExecutor {
                         Player player = (Player)sender;
                         BuffPlayerData playerData = BuffPlayerData.getPlayerData(player.getName());
                         if(playerData != null){
-                            if(playerData.getNowHasBuff().isEmpty()){
-                                player.sendMessage("§a当前未拥有buff.");
-                                return true;
-                            }else{
-                                player.sendMessage("§a当前拥有:");
-                                for(String buffName : playerData.getNowHasBuff()){
-                                    player.sendMessage("§8- §b" + buffName);
+                            for(BuffPackage buffPackage : playerData.getBuffPackageMap().values()){
+                                player.sendMessage("§6" + buffPackage.getName());
+                                for(Buff buff : buffPackage.getBuffs()){
+                                    player.sendMessage("§8- §9" + Buff.getBuffNameByOName(buff.getName()) + "§c" + buff.getData());
                                 }
-                                return true;
+                                player.sendMessage("§8- §e剩余时间§6" + playerData.getBuffPackageTime(buffPackage.getName()));
+                            }
+                            for(Buff buff : playerData.getBuffs()){
+                                player.sendMessage("§8- §9" + Buff.getBuffNameByOName(buff.getName()) + "§c" + buff.getData());
+                                player.sendMessage("§8- §e剩余时间§6" + playerData.getBuffTime(buff.getName()));
                             }
                         }else{
                             player.sendMessage("§a当前未拥有buff.");
