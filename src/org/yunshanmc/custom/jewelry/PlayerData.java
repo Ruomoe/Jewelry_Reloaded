@@ -10,6 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.yunshanmc.custom.buff.BuffPlayerData;
+import org.yunshanmc.custom.collect.data.PlayerCollectData;
 
 public class PlayerData {
     private volatile String playerName;
@@ -60,7 +61,8 @@ public class PlayerData {
     }
 
     public int getHealth() {
-        return BuffPlayerData.getPlayerData(playerName) != null ? this.health + BuffPlayerData.getPlayerData(playerName).getAddHealth() : this.health;
+        int temp = BuffPlayerData.getPlayerData(playerName) != null ? this.health + BuffPlayerData.getPlayerData(playerName).getAddHealth() : this.health;
+        return PlayerCollectData.getDataByName(playerName) != null ? temp + PlayerCollectData.getDataByName(playerName).addHealths : temp;
     }
 
     public int getDamage() {
@@ -69,7 +71,8 @@ public class PlayerData {
         //   Bukkit.getPlayer(playerName).sendMessage("你当前攻击力加成 " + BuffPlayerData.getPlayerData(playerName).getAddDamage());
         //    Bukkit.getPlayer(playerName).sendMessage("当前getDamage 返回 " + (BuffPlayerData.getPlayerData(playerName) != null ? this.damage + BuffPlayerData.getPlayerData(playerName).getAddDamage() : this.damage));
         //}
-        return BuffPlayerData.getPlayerData(playerName) != null ? this.damage + BuffPlayerData.getPlayerData(playerName).getAddDamage() : this.damage;
+        int temp = BuffPlayerData.getPlayerData(playerName) != null ? this.damage + BuffPlayerData.getPlayerData(playerName).getAddDamage() : this.damage;
+        return PlayerCollectData.getDataByName(playerName) != null ? temp + PlayerCollectData.getDataByName(playerName).addDamages : temp;
     }
 
     public int getForgeRate() {

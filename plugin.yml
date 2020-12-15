@@ -9,3 +9,4 @@ softDepend: [RPG_Items]
 commands:
   jewelry: {}
   buff:
+  tj:

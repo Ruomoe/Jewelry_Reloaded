@@ -14,6 +14,11 @@ import org.yunshanmc.custom.buff.commands.BuffCommands;
 import org.yunshanmc.custom.buff.listener.BuffPlayerListener;
 import org.yunshanmc.custom.buff.task.BuffTimerTask;
 import org.yunshanmc.custom.buff.utils.BuffUtils;
+import org.yunshanmc.custom.collect.CollectItem;
+import org.yunshanmc.custom.collect.command.CollectCommands;
+import org.yunshanmc.custom.collect.listener.CollectItemGuiListener;
+import org.yunshanmc.custom.collect.task.PlayerCollectUpdateTask;
+import org.yunshanmc.custom.collect.utils.CollectUtils;
 
 public final class Jewelry extends JavaPlugin {
     private static Jewelry Instance;
@@ -32,6 +37,7 @@ public final class Jewelry extends JavaPlugin {
         this.addonInvManager = new AddonInvManager(getDataFolder().toPath());
         ConfigurationSection section = getConfig().getConfigurationSection("addon-inv");
         Bukkit.getPluginCommand("buff").setExecutor(new BuffCommands());
+        Bukkit.getPluginCommand("tj").setExecutor(new CollectCommands());
         root = this.getDataFolder().getAbsolutePath();
         if (section != null)
             for (String key : section.getKeys(false))
@@ -39,16 +45,21 @@ public final class Jewelry extends JavaPlugin {
                         .getString(key + ".inv-title"), section
                         .getString(key + ".lore-key"));
         AttributeHandle.init((ConfigurationSection)getConfig());
-        this.playerManager = new PlayerManager((Plugin)this);
-        getServer().getPluginManager().registerEvents(this.playerManager, (Plugin)this);
+        this.playerManager = new PlayerManager(this);
+        getServer().getPluginManager().registerEvents(this.playerManager, this);
         Bukkit.getPluginManager().registerEvents(new BuffPlayerListener(),this);
+        Bukkit.getPluginManager().registerEvents(new CollectItemGuiListener(),this);
         BuffUtils.update();
+        CollectUtils.update();
+        CollectUtils.load();
         Bukkit.getScheduler().runTaskTimer(this,new BuffTimerTask(),20L,20L);
+        Bukkit.getScheduler().runTaskTimer(this,new PlayerCollectUpdateTask(),20L,20L);
         for (Player player : Bukkit.getServer().getOnlinePlayers())
             this.playerManager.handleJoin(player);
     }
 
     public void onDisable() {
+        CollectUtils.save();
         HandlerList.unregisterAll((Plugin)this);
         ProtocolLibrary.getProtocolManager().removePacketListeners((Plugin)this);
         for (Player player : Bukkit.getServer().getOnlinePlayers())

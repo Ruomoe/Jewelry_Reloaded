@@ -45,3 +45,19 @@ buff:
       display: "锻造成功率"
     expPlus:
       display: "经验加成"
+collect:
+  fb1:
+    name: 测试图鉴包
+    x: 1
+    y: 1
+    finalAddDamage: 100
+    finalAddHealth: 100
+    include:
+      f1:
+        name: 测试1
+        damage: 10
+        health: 10
+      f2:
+        name: 测试1
+        damage: 10
+        health: 10
