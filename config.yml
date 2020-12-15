@@ -45,6 +45,11 @@ buff:
       display: "锻造成功率"
     expPlus:
       display: "经验加成"
+buffPackage:
+  测试包:
+    damage: 60
+    health: 80
+
 collect:
   fb1:
     name: 测试图鉴包

@@ -31,8 +31,10 @@ public final class Jewelry extends JavaPlugin {
         return Instance;
     }
     public static String root;
+    public static Plugin plugin;
     public void onEnable() {
         Instance = this;
+        plugin = Bukkit.getPluginManager().getPlugin("Jewelry");
         saveDefaultConfig();
         this.addonInvManager = new AddonInvManager(getDataFolder().toPath());
         ConfigurationSection section = getConfig().getConfigurationSection("addon-inv");

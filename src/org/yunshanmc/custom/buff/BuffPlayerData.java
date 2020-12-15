@@ -12,6 +12,8 @@ public class BuffPlayerData {
     private Player player;
     private HashMap<String,Integer> buffMap = new HashMap<>();
     private HashMap<String,Buff> buffs = new HashMap<>();
+    private HashMap<String,BuffPackage> buffPackages = new HashMap<>();
+    private HashMap<String,Integer> buffPackageTime = new HashMap<>();
     private int addDamage = 0;
     private int addForge = 0;
     private int addHealth = 0;
@@ -26,6 +28,7 @@ public class BuffPlayerData {
         addExp = 0;
         addForge = 0;
         addHealth = 0;
+        Iterator<String> packageIt = buffPackages.keySet().iterator();
         Iterator<String> it = buffMap.keySet().iterator();
         while(it.hasNext()){
             String buffName = it.next();
@@ -44,6 +47,15 @@ public class BuffPlayerData {
                 }
             }
         }
+        while(packageIt.hasNext()){
+            String packageName = packageIt.next();
+            if(buffPackageTime.get(packageName) - 1 > 0){
+                buffPackageTime.put(packageName,buffPackageTime.get(packageName) - 1);
+            }else{
+                buffPackageTime.remove(packageName);
+                buffPackages.remove(packageName);
+            }
+        }
         for(Buff buff : buffs.values()){
             String keyName = buff.getName();
             if(keyName.equals("damage")){
@@ -55,6 +67,21 @@ public class BuffPlayerData {
                 addForge = buff.getData();
             }else if(keyName.equals("expPlus")){
                 addExp = buff.getData();
+            }
+        }
+        for(BuffPackage buffPackage : buffPackages.values()){
+            for(Buff buff : buffPackage.getBuffs()){
+                String keyName = buff.getName();
+                if(keyName.equals("damage")){
+                    addDamage = buff.getData();
+                    //player.sendMessage("你当前拥有 " + Buff.getBuffNameByDisplay("damage") + " " + buff.getData());
+                }else if(keyName.equals("health")){
+                    addHealth = buff.getData();
+                }else if(keyName.equals("forge")){
+                    addForge = buff.getData();
+                }else if(keyName.equals("expPlus")){
+                    addExp = buff.getData();
+                }
             }
         }
     }
@@ -85,7 +112,10 @@ public class BuffPlayerData {
         buffMap.remove(Buff.getBuffNameByDisplay(buff.getName()));
         buffs.remove(buff.getName());
     }
-
+    public void addBuffPackage(BuffPackage buffPackage,int time){
+        buffPackages.put(buffPackage.getName(),buffPackage);
+        buffPackageTime.put(buffPackage.getName(),time);
+    }
     public static void addPlayerData(String playerName,BuffPlayerData data){
         playerDataMap.put(playerName,data);
     }
