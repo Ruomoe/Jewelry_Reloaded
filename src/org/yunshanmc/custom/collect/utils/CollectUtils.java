@@ -6,6 +6,7 @@ import org.yunshanmc.custom.collect.CollectItem;
 import org.yunshanmc.custom.collect.CollectPackage;
 import org.yunshanmc.custom.collect.data.PlayerCollectData;
 import org.yunshanmc.custom.jewelry.Jewelry;
+import yo.S;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,7 +37,7 @@ public class CollectUtils {
             CollectPackage.putCollectPackage(config.getString("collect." + name + ".name"),collectPackage);
         }
     }
-    public static void load(){
+    public static void save(){
         File file = new File(Jewelry.root,"data.yml");
         if(!file.exists()){
             try {
@@ -59,7 +60,7 @@ public class CollectUtils {
             e.printStackTrace();
         }
     }
-    public static void save(){
+    public static void load(){
         File file = new File(Jewelry.root,"data.yml");
         if(!file.exists()){
             try {
@@ -70,12 +71,14 @@ public class CollectUtils {
         }
         FileConfiguration config = YamlConfiguration.loadConfiguration(file);
         for(String playerName : config.getKeys(false)){
-            List<CollectItem> collects = new ArrayList<>();
+            System.out.println("正在加载 " + playerName);
+
+            PlayerCollectData data = new PlayerCollectData(playerName,new ArrayList<>());
             for(String itemName : config.getConfigurationSection(playerName).getKeys(false)){
-                CollectItem collectItem = new CollectItem(itemName,config.getInt(playerName + "." + itemName + ".damage"),config.getInt(playerName + "." + itemName + ".health"));
-                collects.add(collectItem);
+                System.out.println("---加载 " + itemName);
+                CollectItem item = CollectItem.getItem(itemName);
+                data.addCollectItem(item);
             }
-            PlayerCollectData data = new PlayerCollectData(playerName,collects);
             PlayerCollectData.putData(playerName,data);
         }
     }

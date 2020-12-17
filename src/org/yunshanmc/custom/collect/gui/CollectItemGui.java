@@ -34,15 +34,20 @@ public class CollectItemGui {
                     isFull = false;
                 }
             }
-            lores.add("§a§l是否完全收集: " + (isFull ? "§6是" : "§c否"));
+            lores.add("§a§l是否完全收集: " + (isFull ? "§6✔" : "§c✖"));
+            lores.add("§6完美收集加成:");
+            lores.add("§9 -- §a增加最大生命 +" + collectPackage.getFinalAddHealth());
+            lores.add("§9 -- §c增加攻击力 +" + collectPackage.getFinalAddDamage());
             for(CollectItem item : collectPackage.getNeedCollectItemList()){
                 String lore = "§8" + item.getName() + "§6-";
                 if(data.getAllCollects().contains(item)){
-                    lore += "§aYES";
+                    lore += "§a✔";
                 }else{
-                    lore += "§cNO";
+                    lore += "§c✖";
                 }
                 lores.add(lore);
+                lores.add("§9 -- §a增加最大生命 +" + item.getAddHealth());
+                lores.add("§9 -- §c增加攻击力 +" + item.getAddDamage());
             }
             meta.setLore(lores);
             stack.setItemMeta(meta);

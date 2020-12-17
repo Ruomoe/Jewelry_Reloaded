@@ -20,17 +20,24 @@ public class BuffCommands implements CommandExecutor {
                     if(sender instanceof Player){
                         Player player = (Player)sender;
                         BuffPlayerData playerData = BuffPlayerData.getPlayerData(player.getName());
+                        boolean has = false;
                         if(playerData != null){
                             for(BuffPackage buffPackage : playerData.getBuffPackageMap().values()){
                                 player.sendMessage("§6" + buffPackage.getName());
                                 for(Buff buff : buffPackage.getBuffs()){
-                                    player.sendMessage("§8- §9" + Buff.getBuffNameByOName(buff.getName()) + "§c" + buff.getData());
+                                    player.sendMessage("§8- §9" + Buff.getBuffNameByDisplay(buff.getName()) + "§c" + buff.getData());
                                 }
                                 player.sendMessage("§8- §e剩余时间§6" + playerData.getBuffPackageTime(buffPackage.getName()));
+                                has = true;
                             }
                             for(Buff buff : playerData.getBuffs()){
-                                player.sendMessage("§8- §9" + Buff.getBuffNameByOName(buff.getName()) + "§c" + buff.getData());
-                                player.sendMessage("§8- §e剩余时间§6" + playerData.getBuffTime(buff.getName()));
+                                has = true;
+                                player.sendMessage("§8- §9" + Buff.getBuffNameByDisplay(buff.getName()) + "§c" + buff.getData());
+                                player.sendMessage("§8- §e剩余时间§6" + playerData.getBuffTime(Buff.getBuffNameByDisplay(buff.getName())));
+                            }
+                            if(!has){
+                                player.sendMessage("§a当前未拥有buff.");
+                                return true;
                             }
                         }else{
                             player.sendMessage("§a当前未拥有buff.");

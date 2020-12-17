@@ -63,6 +63,6 @@ collect:
         damage: 10
         health: 10
       f2:
-        name: 测试1
+        name: 测试2
         damage: 10
         health: 10

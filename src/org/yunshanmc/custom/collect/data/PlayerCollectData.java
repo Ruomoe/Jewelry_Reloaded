@@ -30,6 +30,8 @@ public class PlayerCollectData {
     }
 
     public void updateData() {
+        addHealths = 0;
+        addDamages = 0;
         for (String packageName : CollectPackage.getAllCollectPackageName()) {
             CollectPackage collectPackage = CollectPackage.getCollectPackageByName(packageName);
             boolean isFull = true;

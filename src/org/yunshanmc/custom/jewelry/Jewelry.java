@@ -14,9 +14,7 @@ import org.yunshanmc.custom.buff.commands.BuffCommands;
 import org.yunshanmc.custom.buff.listener.BuffPlayerListener;
 import org.yunshanmc.custom.buff.task.BuffTimerTask;
 import org.yunshanmc.custom.buff.utils.BuffUtils;
-import org.yunshanmc.custom.collect.CollectItem;
 import org.yunshanmc.custom.collect.command.CollectCommands;
-import org.yunshanmc.custom.collect.listener.CollectItemGuiListener;
 import org.yunshanmc.custom.collect.task.PlayerCollectUpdateTask;
 import org.yunshanmc.custom.collect.utils.CollectUtils;
 
@@ -49,8 +47,7 @@ public final class Jewelry extends JavaPlugin {
         AttributeHandle.init((ConfigurationSection)getConfig());
         this.playerManager = new PlayerManager(this);
         getServer().getPluginManager().registerEvents(this.playerManager, this);
-        Bukkit.getPluginManager().registerEvents(new BuffPlayerListener(),this);
-        Bukkit.getPluginManager().registerEvents(new CollectItemGuiListener(),this);
+        getServer().getPluginManager().registerEvents(new BuffPlayerListener(),this);
         BuffUtils.update();
         CollectUtils.update();
         CollectUtils.load();
