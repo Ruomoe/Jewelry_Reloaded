@@ -29,7 +29,6 @@ public class BuffPlayerData {
         addExp = 0;
         addForge = 0;
         addHealth = 0;
-        Iterator<String> packageIt = buffPackages.keySet().iterator();
         Iterator<String> it = buffMap.keySet().iterator();
         while(it.hasNext()){
             String buffName = it.next();
@@ -48,6 +47,7 @@ public class BuffPlayerData {
                 }
             }
         }
+        Iterator<String> packageIt = buffPackages.keySet().iterator();
         while(packageIt.hasNext()){
             String packageName = packageIt.next();
             if(buffPackageTime.get(packageName) - 1 > 0){
