@@ -1,6 +1,7 @@
 health-name: "生命"
 damage-name: "攻击"
 forge-rate-name: "福星"
+absorbBoold: "吸血"
 effects:
   SPEED: "疾行"
   JUMP: "灵敏"

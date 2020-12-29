@@ -1,10 +1,12 @@
 package org.yunshanmc.custom.buff.utils;
 
+import com.sun.media.jfxmedia.events.BufferListener;
 import org.bukkit.Particle;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.yunshanmc.custom.buff.Buff;
 import org.yunshanmc.custom.buff.BuffPackage;
+import org.yunshanmc.custom.buff.listener.BuffPlayerListener;
 import org.yunshanmc.custom.jewelry.Jewelry;
 
 import java.io.File;
@@ -16,6 +18,7 @@ public class BuffUtils {
         File file = new File(Jewelry.root,"config.yml");
         if(file.exists()){
             FileConfiguration config = YamlConfiguration.loadConfiguration(file);
+            BuffPlayerListener.absorbBloodStr = config.getString("absorbBlood");
             for(String path : config.getConfigurationSection("buff").getKeys(false)){
                 Buff buff = new Buff(path,0);
                 Buff.putBuffDisplayName(config.getString("buff." + path + ".display"),buff);

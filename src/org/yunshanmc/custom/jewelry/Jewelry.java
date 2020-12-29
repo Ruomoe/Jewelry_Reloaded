@@ -14,6 +14,7 @@ import org.yunshanmc.custom.buff.commands.BuffCommands;
 import org.yunshanmc.custom.buff.listener.BuffPlayerListener;
 import org.yunshanmc.custom.buff.task.BuffTimerTask;
 import org.yunshanmc.custom.buff.utils.BuffUtils;
+import org.yunshanmc.custom.collect.CollectItem;
 import org.yunshanmc.custom.collect.command.CollectCommands;
 import org.yunshanmc.custom.collect.task.PlayerCollectUpdateTask;
 import org.yunshanmc.custom.collect.utils.CollectUtils;
@@ -53,6 +54,7 @@ public final class Jewelry extends JavaPlugin {
         CollectUtils.load();
         Bukkit.getScheduler().runTaskTimer(this,new BuffTimerTask(),20L,20L);
         Bukkit.getScheduler().runTaskTimer(this,new PlayerCollectUpdateTask(),20L,20L);
+        Bukkit.getScheduler().runTaskTimer(this, CollectUtils::save,3600L,3600L);
         for (Player player : Bukkit.getServer().getOnlinePlayers())
             this.playerManager.handleJoin(player);
     }

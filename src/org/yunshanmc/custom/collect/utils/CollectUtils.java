@@ -6,12 +6,10 @@ import org.yunshanmc.custom.collect.CollectItem;
 import org.yunshanmc.custom.collect.CollectPackage;
 import org.yunshanmc.custom.collect.data.PlayerCollectData;
 import org.yunshanmc.custom.jewelry.Jewelry;
-import yo.S;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class CollectUtils {
     public static void update(){
