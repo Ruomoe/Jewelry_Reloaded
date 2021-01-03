@@ -4,17 +4,19 @@ import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class PlayerPrefixData {
     private static HashMap<String,PlayerPrefixData> playerPrefixDataHashMap = new HashMap<>();
     private Player player;
+    private String playerName;
     private List<Prefix> prefixList;
     private int addDamage;
     private int addHealth;
     private int addExpPlus;
     private String using = null;
-    public PlayerPrefixData(Player player,List<Prefix> list){
-        this.player = player;
+    public PlayerPrefixData(String player,List<Prefix> list){
+        this.playerName = player;
         this.prefixList = list;
     }
 
@@ -80,11 +82,17 @@ public class PlayerPrefixData {
         return player;
     }
 
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
     public static void putPlayerData(String playerName, PlayerPrefixData data){
         playerPrefixDataHashMap.put(playerName,data);
     }
     public static PlayerPrefixData getPlayerDataByName(String playerName){
         return playerPrefixDataHashMap.get(playerName);
     }
-
+    public static Set<String> players(){
+        return playerPrefixDataHashMap.keySet();
+    }
 }

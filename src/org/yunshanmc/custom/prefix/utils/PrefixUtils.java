@@ -1,13 +1,19 @@
 package org.yunshanmc.custom.prefix.utils;
 
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.yunshanmc.custom.jewelry.Jewelry;
+import org.yunshanmc.custom.prefix.PlayerPrefixData;
 import org.yunshanmc.custom.prefix.Prefix;
 
+import javax.persistence.PreUpdate;
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class PrefixUtils {
     private static HashMap<String, Prefix> prefixHashMap = new HashMap<>();
@@ -31,6 +37,51 @@ public class PrefixUtils {
                 prefix.addAttr(attrKey,config.getInt("prefix." + configId + ".attr." + attrKey));
             }
             PrefixUtils.putPrefix(configId,prefix);
+        }
+    }
+    public static void load(){
+        File file = new File(Jewelry.root,"prefixData.yml");
+        if(!file.exists()){
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        FileConfiguration config = YamlConfiguration.loadConfiguration(file);
+        for(String playerName : config.getKeys(false)){
+            PlayerPrefixData playerPrefixData = new PlayerPrefixData(playerName,new ArrayList<>());
+            List<String> names = config.getStringList(playerName + ".has");
+            for(String name : names){
+                Prefix prefix = PrefixUtils.getPrefixByConfigId(name).clone();
+                playerPrefixData.addPrefix(prefix);
+            }
+            playerPrefixData.setUsing(config.getString(playerName + ".using"));
+        }
+    }
+    public static void save(){
+        File file = new File(Jewelry.root,"prefixData.yml");
+        if(!file.exists()){
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        FileConfiguration config = YamlConfiguration.loadConfiguration(file);
+        for(String playerName : PlayerPrefixData.players()){
+            PlayerPrefixData data = PlayerPrefixData.getPlayerDataByName(playerName);
+            List<String> names = new ArrayList<>();
+            for(Prefix prefix : data.getPrefixList()){
+                names.add(prefix.getConfigId());
+            }
+            config.set(playerName + ".has",names);
+            config.set(playerName + ".using",data.getUsing());
+        }
+        try {
+            config.save(file);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

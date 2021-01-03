@@ -13,7 +13,7 @@ public class PrefixAttrUpdateTask implements Runnable {
             if(PlayerPrefixData.getPlayerDataByName(player.getName()) != null){
                 PlayerPrefixData.getPlayerDataByName(player.getName()).update();
             }else{
-                PlayerPrefixData.putPlayerData(player.getName(),new PlayerPrefixData(player,new ArrayList<>()));
+                PlayerPrefixData.putPlayerData(player.getName(),new PlayerPrefixData(player.getName(),new ArrayList<>()));
             }
         }
     }

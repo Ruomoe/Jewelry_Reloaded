@@ -1,11 +1,15 @@
 package org.yunshanmc.custom.prefix.command;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.yunshanmc.custom.prefix.PlayerPrefixData;
 import org.yunshanmc.custom.prefix.Prefix;
+import org.yunshanmc.custom.prefix.utils.PrefixUtils;
+
+import javax.persistence.PreUpdate;
 
 public class PrefixCommands implements CommandExecutor {
     @Override
@@ -42,6 +46,25 @@ public class PrefixCommands implements CommandExecutor {
                         }
                     }
                     player.sendMessage("§c你没有 §b" + needUse);
+                    return true;
+                }
+            }
+            if(args.length == 3){
+                if(args[0].equalsIgnoreCase("give")){
+                    String playerName = args[1];
+                    String configId = args[2];
+                    if(PrefixUtils.getPrefixByConfigId(configId) == null){
+                        sender.sendMessage("§c没有这个称号.");
+                        return true;
+                    }
+                    Prefix prefix = PrefixUtils.getPrefixByConfigId(configId).clone();
+                    if(Bukkit.getPlayer(playerName) == null || !Bukkit.getPlayer(playerName).isOnline()){
+                        sender.sendMessage("§c玩家不存在或不在线.");
+                        return true;
+                    }
+                    PlayerPrefixData data = PlayerPrefixData.getPlayerDataByName(playerName);
+                    data.addPrefix(prefix);
+                    sender.sendMessage("§a添加完成.");
                     return true;
                 }
             }

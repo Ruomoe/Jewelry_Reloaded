@@ -56,15 +56,18 @@ public final class Jewelry extends JavaPlugin {
         CollectUtils.update();
         CollectUtils.load();
         PrefixUtils.update();
+        PrefixUtils.load();
         Bukkit.getScheduler().runTaskTimer(this,new BuffTimerTask(),20L,20L);
         Bukkit.getScheduler().runTaskTimer(this,new PlayerCollectUpdateTask(),20L,20L);
         Bukkit.getScheduler().runTaskTimer(this, CollectUtils::save,3600L,3600L);
+        Bukkit.getScheduler().runTaskTimer(this, PrefixUtils::save,3600L,3600L);
         for (Player player : Bukkit.getServer().getOnlinePlayers())
             this.playerManager.handleJoin(player);
     }
 
     public void onDisable() {
         CollectUtils.save();
+        PrefixUtils.save();
         HandlerList.unregisterAll((Plugin)this);
         ProtocolLibrary.getProtocolManager().removePacketListeners((Plugin)this);
         for (Player player : Bukkit.getServer().getOnlinePlayers())
