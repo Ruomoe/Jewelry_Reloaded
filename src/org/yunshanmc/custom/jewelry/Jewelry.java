@@ -14,10 +14,12 @@ import org.yunshanmc.custom.buff.commands.BuffCommands;
 import org.yunshanmc.custom.buff.listener.BuffPlayerListener;
 import org.yunshanmc.custom.buff.task.BuffTimerTask;
 import org.yunshanmc.custom.buff.utils.BuffUtils;
-import org.yunshanmc.custom.collect.CollectItem;
 import org.yunshanmc.custom.collect.command.CollectCommands;
 import org.yunshanmc.custom.collect.task.PlayerCollectUpdateTask;
 import org.yunshanmc.custom.collect.utils.CollectUtils;
+import org.yunshanmc.custom.prefix.command.PrefixCommands;
+import org.yunshanmc.custom.prefix.utils.PrefixUtils;
+
 
 public final class Jewelry extends JavaPlugin {
     private static Jewelry Instance;
@@ -39,6 +41,7 @@ public final class Jewelry extends JavaPlugin {
         ConfigurationSection section = getConfig().getConfigurationSection("addon-inv");
         Bukkit.getPluginCommand("buff").setExecutor(new BuffCommands());
         Bukkit.getPluginCommand("tj").setExecutor(new CollectCommands());
+        Bukkit.getPluginCommand("mtpre").setExecutor(new PrefixCommands());
         root = this.getDataFolder().getAbsolutePath();
         if (section != null)
             for (String key : section.getKeys(false))
@@ -52,6 +55,7 @@ public final class Jewelry extends JavaPlugin {
         BuffUtils.update();
         CollectUtils.update();
         CollectUtils.load();
+        PrefixUtils.update();
         Bukkit.getScheduler().runTaskTimer(this,new BuffTimerTask(),20L,20L);
         Bukkit.getScheduler().runTaskTimer(this,new PlayerCollectUpdateTask(),20L,20L);
         Bukkit.getScheduler().runTaskTimer(this, CollectUtils::save,3600L,3600L);

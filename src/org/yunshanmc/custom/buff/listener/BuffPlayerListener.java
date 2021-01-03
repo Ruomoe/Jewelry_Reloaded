@@ -12,6 +12,8 @@ import org.bukkit.event.player.PlayerExpChangeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.yunshanmc.custom.buff.BuffPlayerData;
+import org.yunshanmc.custom.prefix.PlayerPrefixData;
+import org.yunshanmc.custom.prefix.Prefix;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,7 +26,9 @@ public class BuffPlayerListener implements Listener {
         Player player = event.getPlayer();
         BuffPlayerData playerData = BuffPlayerData.getPlayerData(player.getName());
         if(playerData != null){
-            int data = playerData.getAddExp();
+            int data = PlayerPrefixData.getPlayerDataByName(player.getName()) != null
+                    ? playerData.getAddExp() + PlayerPrefixData.getPlayerDataByName(player.getName()).getAddExpPlus()
+                    : playerData.getAddExp();
             double point = data / 100.0;
             int exp = event.getAmount();
             exp *= 1 + point;

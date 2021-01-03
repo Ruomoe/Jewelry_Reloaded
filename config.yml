@@ -67,3 +67,11 @@ collect:
         name: 测试2
         damage: 10
         health: 10
+prefix:
+  test:
+    display: "测试称号"
+    attr:
+      damage: 10
+      expPlus: 5
+      health: 50
+    use: true
