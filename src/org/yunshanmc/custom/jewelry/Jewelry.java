@@ -17,7 +17,9 @@ import org.yunshanmc.custom.buff.utils.BuffUtils;
 import org.yunshanmc.custom.collect.command.CollectCommands;
 import org.yunshanmc.custom.collect.task.PlayerCollectUpdateTask;
 import org.yunshanmc.custom.collect.utils.CollectUtils;
+import org.yunshanmc.custom.jewelry.papi.SumPapi;
 import org.yunshanmc.custom.prefix.command.PrefixCommands;
+import org.yunshanmc.custom.prefix.listener.PrefixListener;
 import org.yunshanmc.custom.prefix.utils.PrefixUtils;
 
 
@@ -50,8 +52,18 @@ public final class Jewelry extends JavaPlugin {
                         .getString(key + ".lore-key"));
         AttributeHandle.init((ConfigurationSection)getConfig());
         this.playerManager = new PlayerManager(this);
+        Plugin papi = Bukkit.getPluginManager().getPlugin("PlaceholderAPI");
+        if(papi != null){
+            boolean isLoadPAPI = new SumPapi().register();
+            if(isLoadPAPI){
+                System.out.println("[Jewelry] Placeholder API Loaded!");
+            }else{
+                System.out.println("[Jewelry] Placeholder API Unloaded!");
+            }
+        }
         getServer().getPluginManager().registerEvents(this.playerManager, this);
         getServer().getPluginManager().registerEvents(new BuffPlayerListener(),this);
+        Bukkit.getPluginManager().registerEvents(new PrefixListener(),this);
         BuffUtils.update();
         CollectUtils.update();
         CollectUtils.load();
