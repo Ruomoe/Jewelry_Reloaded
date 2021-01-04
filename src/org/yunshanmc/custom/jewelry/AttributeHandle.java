@@ -16,6 +16,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffectType;
+import org.yunshanmc.custom.buff.listener.BuffPlayerListener;
 import think.rpgitems.api.RPGItems;
 import think.rpgitems.item.RPGItem;
 
@@ -34,6 +35,7 @@ public class AttributeHandle {
 
     private static boolean rpgItemsEnable;
 
+    public static String expNeed;
     static {
         try {
             RPGItems.class.getName();
@@ -44,6 +46,7 @@ public class AttributeHandle {
     }
 
     public static void init(ConfigurationSection config) {
+        expNeed = config.getString("expNeed");
         healthPattern = newPattern(config.getString("health-name", "生命值"));
                 damagePattern = newPattern(config.getString("damage-name", "物理攻击"));
                         forgeRatePattern = newPattern(config.getString("forge-rate-name", "锻造成功率"));
@@ -64,8 +67,24 @@ public class AttributeHandle {
         List<ItemData> datas = new ArrayList<>();
         for (int slot = 0; slot < size; slot++) {
             ItemStack item = inv.getItem(slot);
+
             if (item == null || item.getType() == Material.AIR)
                 continue;
+            if(item.getItemMeta().hasLore()){
+                boolean notAdd = false;
+                for(String lore : item.getItemMeta().getLore()){
+                    if(lore.contains(AttributeHandle.expNeed)){
+                        int exp = (int)BuffPlayerListener.getHas(lore);
+                        if(player.getLevel() < exp){
+                            notAdd = true;
+                            break;
+                        }
+                    }
+                }
+                if(notAdd){
+                    continue;
+                }
+            }
             if (item.getAmount() > 1 || !item.hasItemMeta()) {
                 if (invalids != null) {
                     invalids.add(item);
