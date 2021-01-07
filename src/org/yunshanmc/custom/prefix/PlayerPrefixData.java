@@ -55,14 +55,16 @@ public class PlayerPrefixData {
         for(Prefix prefix : prefixList){
             for(String key : prefix.getAttrMap().keySet()){
                 if(prefix.isNeedUse()) {
-                    if (using.equals(prefix.getConfigId())) {
-                        int data = prefix.getAttrMap().get(key);
-                        if (key.equals("damage")) {
-                            addDamage += data;
-                        } else if (key.equals("health")) {
-                            addHealth += data;
-                        } else if (key.equals("expPlus")) {
-                            addExpPlus += data;
+                    if(using != null) {
+                        if (using.equals(prefix.getConfigId())) {
+                            int data = prefix.getAttrMap().get(key);
+                            if (key.equals("damage")) {
+                                addDamage += data;
+                            } else if (key.equals("health")) {
+                                addHealth += data;
+                            } else if (key.equals("expPlus")) {
+                                addExpPlus += data;
+                            }
                         }
                     }
                 }else{

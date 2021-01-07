@@ -31,6 +31,13 @@ public class PrefixCommands implements CommandExecutor {
                     player.sendMessage("§a#==================#");
                     return true;
                 }
+                if(path.equalsIgnoreCase("unuse")){
+                    Player player = (Player)sender;
+                    PlayerPrefixData data = PlayerPrefixData.getPlayerDataByName(player.getName());
+                    data.setUsing(null);
+                    player.sendMessage("解除完成.");
+                    return true;
+                }
             }
             if(args.length == 2){
                 String path = args[0];
@@ -47,6 +54,9 @@ public class PrefixCommands implements CommandExecutor {
                     }
                     player.sendMessage("§c你没有 §b" + needUse);
                     return true;
+                }
+                if(path.equalsIgnoreCase("info")){
+                    //称号属性 是否需要使用 总加成 未写
                 }
             }
             if(args.length == 3){
