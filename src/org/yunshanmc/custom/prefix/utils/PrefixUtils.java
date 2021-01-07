@@ -1,14 +1,12 @@
 package org.yunshanmc.custom.prefix.utils;
 
 
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.yunshanmc.custom.jewelry.Jewelry;
 import org.yunshanmc.custom.prefix.PlayerPrefixData;
 import org.yunshanmc.custom.prefix.Prefix;
 
-import javax.persistence.PreUpdate;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
