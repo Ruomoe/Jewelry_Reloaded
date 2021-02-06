@@ -22,6 +22,8 @@ import org.yunshanmc.custom.prefix.command.PrefixCommands;
 import org.yunshanmc.custom.prefix.listener.PrefixListener;
 import org.yunshanmc.custom.prefix.task.PrefixAttrUpdateTask;
 import org.yunshanmc.custom.prefix.utils.PrefixUtils;
+import org.yunshanmc.custom.suit.listener.SuitAttrListener;
+import org.yunshanmc.custom.suit.utils.SuitUtils;
 
 
 public final class Jewelry extends JavaPlugin {
@@ -65,11 +67,13 @@ public final class Jewelry extends JavaPlugin {
         getServer().getPluginManager().registerEvents(this.playerManager, this);
         getServer().getPluginManager().registerEvents(new BuffPlayerListener(),this);
         Bukkit.getPluginManager().registerEvents(new PrefixListener(),this);
+        Bukkit.getPluginManager().registerEvents(new SuitAttrListener(),this);
         BuffUtils.update();
         CollectUtils.update();
         CollectUtils.load();
         PrefixUtils.update();
         PrefixUtils.load();
+        SuitUtils.update();
         Bukkit.getScheduler().runTaskTimer(this,new BuffTimerTask(),20L,20L);
         Bukkit.getScheduler().runTaskTimer(this,new PlayerCollectUpdateTask(),20L,20L);
         Bukkit.getScheduler().runTaskTimer(this,new PrefixAttrUpdateTask(),20L,20L);

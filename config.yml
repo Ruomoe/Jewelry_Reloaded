@@ -3,6 +3,14 @@ damage-name: "攻击"
 forge-rate-name: "福星"
 absorbBoold: "吸血"
 expNeed: "等级限制"
+armor: "护甲"
+takeDamage: "减伤"
+dodgeProbability: "闪避几率"
+dodge: 20
+reflexProbability: "反伤几率"
+reflex: 10
+angryProbability: "怒气"
+angry: 20
 effects:
   SPEED: "疾行"
   JUMP: "灵敏"
@@ -76,3 +84,18 @@ prefix:
       expPlus: 5
       health: 50
     use: true
+suit:
+  testSuit:
+    need: 4
+    names:
+      - "h"
+      - "c"
+      - "l"
+      - "b"
+    2:
+      - "攻击+ 100"
+    3:
+      - "攻击+ 1000"
+    4:
+      - "攻击+ 10000"
+      - "生命+ 5000"
