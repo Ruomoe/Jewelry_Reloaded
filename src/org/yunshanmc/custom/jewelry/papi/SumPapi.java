@@ -5,6 +5,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.yunshanmc.custom.jewelry.Jewelry;
 import org.yunshanmc.custom.jewelry.PlayerData;
+import org.yunshanmc.custom.suit.PlayerSuitCache;
+import org.yunshanmc.custom.suit.utils.SuitUtils;
 
 public class SumPapi extends PlaceholderExpansion {
     public boolean canRegister() {
@@ -34,6 +36,17 @@ public class SumPapi extends PlaceholderExpansion {
             return "" + data.getHealth();
         }else if(s.equalsIgnoreCase("forge")){
             return "" + data.getForgeRate();
+        }
+        PlayerSuitCache cache = PlayerSuitCache.getPlayerCacheByName(player.getName());
+        if(cache != null){
+            if(s.equalsIgnoreCase("armor")) return "" + cache.getArmor();
+            else if(s.equalsIgnoreCase("takeDamage")) return "" + cache.getTakeDamage();
+            else if(s.equalsIgnoreCase("dodgeProbability")) return "" + cache.getDodgeProbability();
+            else if(s.equalsIgnoreCase("dodge")) return "" + SuitUtils.dodge;
+            else if(s.equalsIgnoreCase("reflexProbability")) return "" + cache.getReflexProbability();
+            else if(s.equalsIgnoreCase("reflex")) return "" + SuitUtils.reflex;
+            else if(s.equalsIgnoreCase("angryProbability")) return "" + cache.getAngryProbability();
+            else if(s.equalsIgnoreCase("angry")) return "" + SuitUtils.angry;
         }
         return "Error";
     }

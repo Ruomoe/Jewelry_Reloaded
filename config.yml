@@ -11,6 +11,17 @@ reflexProbability: "反伤几率"
 reflex: 10
 angryProbability: "怒气"
 angry: 20
+critProbability: "暴击几率"
+crit: "暴击伤害"
+damage-percentage: "百分比攻击力"
+absorb-percentage: "百分比吸血"
+
+message:
+  dodge: "&3&l闪避!"
+  reflex: "&6&l反伤!"
+  byReflex: "&6&l被反伤!"
+  angry: "&c&l怒气爆发!"
+
 effects:
   SPEED: "疾行"
   JUMP: "灵敏"

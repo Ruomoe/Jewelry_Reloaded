@@ -43,33 +43,6 @@ public class BuffPlayerListener implements Listener {
             }
         }
     }
-    @EventHandler
-    public void damage(EntityDamageByEntityEvent event){
-        Entity damager = event.getDamager();
-        if(damager instanceof Player){
-            Player player = (Player)damager;
-            ItemStack stack = player.getItemInHand();
-            if(stack != null && !stack.getType().equals(Material.AIR)){
-                ItemMeta meta = stack.getItemMeta();
-                if(meta.hasLore()){
-                    double absorbBloodNumber = 0L;
-                    for(String lore : meta.getLore()){
-                        if(lore.contains(absorbBloodStr)){
-                            absorbBloodNumber = getHas(lore);
-                            break;
-                        }
-                    }
-                    absorbBloodNumber *= 10;
-                    if((player.getHealth() + absorbBloodNumber) > player.getMaxHealth()){
-                        player.setHealth(player.getMaxHealth());
-                    }else{
-                        player.setHealth(player.getHealth() + absorbBloodNumber);
-                    }
-                }
-            }
-        }
-
-    }
     public static double getHas(String lore){
         Matcher matcher = pattern.matcher(ChatColor.stripColor(lore));
         if(matcher.find()){

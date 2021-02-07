@@ -5,8 +5,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.yunshanmc.custom.jewelry.Jewelry;
 import org.yunshanmc.custom.suit.Suit;
-import yo.S;
-
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +39,10 @@ public class SuitUtils {
             }
             Suit suit = new Suit(suitName,attrMap,need,keys);
             Suit.putSuit(suit,suitName);
+        }
+
+        for(String path : config.getConfigurationSection("message").getKeys(false)){
+            MessageUtils.putMessage(path,config.getString("message." + path).replace("&","§"));
         }
     }
     public static double getHas(String lore){
