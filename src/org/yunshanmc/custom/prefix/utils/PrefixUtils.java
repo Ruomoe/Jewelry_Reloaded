@@ -73,9 +73,9 @@ public class PrefixUtils {
             for(Prefix prefix : data.getPrefixList()){
                 names.add(prefix.getConfigId());
             }
-            System.out.println();
+            System.out.println("");
             System.out.println("Save " + playerName + " name: " + names.toString());
-            System.out.println();
+            System.out.println("");
             config.set(playerName + ".has",names);
             config.set(playerName + ".using",data.getUsing());
         }

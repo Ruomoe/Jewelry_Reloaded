@@ -74,6 +74,7 @@ buffPackage:
 collect:
   fb1:
     name: 测试图鉴包
+    id: 1
     x: 1
     y: 1
     finalAddDamage: 100

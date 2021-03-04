@@ -47,6 +47,11 @@ public class SumPapi extends PlaceholderExpansion {
             else if(s.equalsIgnoreCase("reflex")) return "" + SuitUtils.reflex;
             else if(s.equalsIgnoreCase("angryProbability")) return "" + cache.getAngryProbability();
             else if(s.equalsIgnoreCase("angry")) return "" + SuitUtils.angry;
+            else if(s.equalsIgnoreCase("critProbability")) return "" + cache.getCritProbability();
+            else if(s.equalsIgnoreCase("crit")) return "" + cache.getCrit();
+            else if(s.equalsIgnoreCase("damage-percentage")) return "" + cache.getDamagePercentage();
+            else if(s.equalsIgnoreCase("absorb-percentage")) return "" + cache.getAbsorbPercentage();
+            else if(s.equalsIgnoreCase("absorb")) return "" + cache.getAbsorb() * 10;
         }
         return "Error";
     }

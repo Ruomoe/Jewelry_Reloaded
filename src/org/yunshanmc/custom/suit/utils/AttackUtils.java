@@ -9,10 +9,11 @@ public class AttackUtils {
         PlayerSuitCache cache = PlayerSuitCache.getPlayerCacheByName(player.getName());
         if(cache != null){
             double damage = event.getDamage();
+            //System.out.println("原始伤害 " + damage);
             if(cache.getDamagePercentage() != 0){
                 damage += damage * (cache.getDamagePercentage() / 100);
             }
-            if(cache.getCritProbability() != 0 && cache.getCritProbability() >= SuitUtils.getProbability()){
+            if(cache.getCritProbability() != 0 && cache.getCrit() != 0 && cache.getCritProbability() >= SuitUtils.getProbability()){
                 damage = damage * (1 + cache.getCrit() / 100);
             }
             if(cache.getAbsorb() != 0){
@@ -23,14 +24,19 @@ public class AttackUtils {
                     player.setHealth(health);
                 }
             }
-            if(cache.getAngryProbability() != 0){
-                double health = player.getHealth() + damage * (cache.getAngryProbability() / 100);
+            if(cache.getAbsorbPercentage() != 0){
+                //System.out.println("玩家最大血量 " + player.getMaxHealth());
+                double health = player.getHealth() + damage * (cache.getAbsorbPercentage() / 100);
+                //System.out.println("回血 " + damage * (cache.getAngryProbability() / 100));
                 if(health > player.getMaxHealth()){
                     player.setHealth(player.getMaxHealth());
                 }else{
                     player.setHealth(health);
                 }
+                //System.out.println("回血后 " + player.getHealth());
             }
+            event.setDamage(damage);
+            //System.out.println("计算后伤害 " + damage);
         }
     }
 }

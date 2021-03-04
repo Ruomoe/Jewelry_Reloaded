@@ -9,6 +9,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.yunshanmc.custom.collect.CollectItem;
 import org.yunshanmc.custom.collect.CollectPackage;
 import org.yunshanmc.custom.collect.data.PlayerCollectData;
+import org.yunshanmc.custom.collect.utils.CollectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ public class CollectItemGui {
             }
             CollectPackage collectPackage = CollectPackage.getCollectPackageByName(collectPackageName);
             PlayerCollectData data = PlayerCollectData.getDataByName(player.getName());
-            ItemStack stack = new ItemStack(Material.WOOL);
+            ItemStack stack = new ItemStack(CollectUtils.idMap.get(collectPackageName));
             ItemMeta meta = stack.getItemMeta();
             meta.setDisplayName("§a图鉴: §b" + collectPackageName);
             List<String> lores = new ArrayList<>();

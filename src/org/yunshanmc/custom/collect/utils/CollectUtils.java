@@ -10,12 +10,15 @@ import org.yunshanmc.custom.jewelry.Jewelry;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CollectUtils {
+    public static HashMap<String,Integer> idMap = new HashMap<>();
     public static void update(){
         File file = new File(Jewelry.root,"config.yml");
         FileConfiguration config = YamlConfiguration.loadConfiguration(file);
         for(String name : config.getConfigurationSection("collect").getKeys(false)){
+            idMap.put(config.getString("collect." + name + ".name"),config.getInt("collect." + name + ".id"));
             CollectPackage collectPackage = new CollectPackage(
                     config.getString("collect." + name + ".name")
                     ,config.getInt("collect." + name + ".x")

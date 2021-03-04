@@ -1,12 +1,14 @@
 package org.yunshanmc.custom.suit;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.yunshanmc.custom.buff.listener.BuffPlayerListener;
 import org.yunshanmc.custom.jewelry.Jewelry;
 import org.yunshanmc.custom.jewelry.PlayerData;
+import org.yunshanmc.custom.suit.utils.AttackUtils;
 import org.yunshanmc.custom.suit.utils.SuitUtils;
 
 import java.util.ArrayList;
@@ -49,11 +51,6 @@ public class PlayerSuitCache {
             if(player.getEquipment().getChestplate() != null)if(player.getEquipment().getChestplate().getItemMeta().hasDisplayName()) equipList.add(player.getEquipment().getChestplate().clone());
             if(player.getEquipment().getLeggings() != null) if(player.getEquipment().getLeggings().getItemMeta().hasDisplayName())equipList.add(player.getEquipment().getLeggings().clone());
             if(player.getEquipment().getBoots() != null) if(player.getEquipment().getBoots().getItemMeta().hasDisplayName()) equipList.add(player.getEquipment().getBoots().clone());
-            for(ItemStack stack : itemStackList){
-                if(stack.getItemMeta().hasDisplayName()){
-                    equipList.add(stack.clone());
-                }
-            }
             for(Suit suit : Suit.getSuits()) {
                 int number = 0;
                 for (ItemStack stack : equipList) {
@@ -73,22 +70,69 @@ public class PlayerSuitCache {
                 if(number >= 2) {
                     if(suit.getAttrMap().containsKey(number)) {
                         List<String> attrs = suit.getAttrMap().get(number);
+                        //System.out.println("--嵌入" + attrs.toString());
                         //读入套装属性.
-                        for (String attr : attrs) readAttr(attr);
+                        for (String attr : attrs) readAllAttr(attr);
                     }
                 }
             }
             for(ItemStack stack : equipList){
                 //读入每个饰品和装备的固有属性.
-                for(String lore : stack.getItemMeta().getLore()) readAttr(lore);
+                for(String lore : stack.getItemMeta().getLore()) readAllAttr(lore);
             }
+            for(ItemStack stack : itemStackList){
+                if(stack.getItemMeta().hasLore()){
+                    for(String lore : stack.getItemMeta().getLore()) readAttr(lore);
+                }
+            }
+            /*
+            if(player.getItemInHand() != null && player.getItemInHand().getType() != Material.AIR){
+                if(player.getItemInHand().getItemMeta().hasLore()){
+                    for(String lore : player.getItemInHand().getItemMeta().getLore()) readAllAttr(lore);
+                }
+            }
+
+             */
             //player.sendMessage("当前含有属性:");
             //for(String attr : attrs){
             //    player.sendMessage(attr);
            // }
         }
     }
-    private void readAttr(String attr){
+    public void readAttr(String attr){
+        if(attr.contains(Jewelry.getInstance().getConfig().getString("armor"))){
+            armor += SuitUtils.getHas(attr);
+            attrs.add(attr);
+        }else if(attr.contains(Jewelry.getInstance().getConfig().getString("takeDamage"))){
+            takeDamage += SuitUtils.getHas(attr);
+            attrs.add(attr);
+        }else if(attr.contains(Jewelry.getInstance().getConfig().getString("dodgeProbability"))){
+            dodgeProbability += SuitUtils.getHas(attr);
+            attrs.add(attr);
+        }else if(attr.contains(Jewelry.getInstance().getConfig().getString("reflexProbability"))){
+            reflexProbability += SuitUtils.getHas(attr);
+            attrs.add(attr);
+        }else if(attr.contains(Jewelry.getInstance().getConfig().getString("angryProbability"))){
+            angryProbability += SuitUtils.getHas(attr);
+            attrs.add(attr);
+        }else if(attr.contains(Jewelry.getInstance().getConfig().getString("absorbBoold")) && !attr.contains(Jewelry.getInstance().getConfig().getString("absorb-percentage"))){
+            absorb += SuitUtils.getHas(attr);
+            attrs.add(attr);
+        }else if(attr.contains(Jewelry.getInstance().getConfig().getString("absorb-percentage"))){
+            absorbPercentage += SuitUtils.getHas(attr);
+            attrs.add(attr);
+        }else if(attr.contains(Jewelry.getInstance().getConfig().getString("damage-percentage"))){
+            damagePercentage += SuitUtils.getHas(attr);
+            attrs.add(attr);
+        }else if(attr.contains(Jewelry.getInstance().getConfig().getString("critProbability"))){
+            critProbability += SuitUtils.getHas(attr);
+            attrs.add(attr);
+        }else if(attr.contains(Jewelry.getInstance().getConfig().getString("crit"))){
+            crit += SuitUtils.getHas(attr);
+            attrs.add(attr);
+        }
+    }
+    public void readAllAttr(String attr){
         if(attr.contains(Jewelry.getInstance().getConfig().getString("health-name"))){
             addHealth += SuitUtils.getHas(attr);
             attrs.add(attr);
@@ -113,7 +157,7 @@ public class PlayerSuitCache {
         }else if(attr.contains(Jewelry.getInstance().getConfig().getString("angryProbability"))){
             angryProbability += SuitUtils.getHas(attr);
             attrs.add(attr);
-        }else if(attr.contains(BuffPlayerListener.absorbBloodStr) && !attr.contains(Jewelry.getInstance().getConfig().getString("absorb-percentage"))){
+        }else if(attr.contains(Jewelry.getInstance().getConfig().getString("absorbBoold")) && !attr.contains(Jewelry.getInstance().getConfig().getString("absorb-percentage"))){
             absorb += SuitUtils.getHas(attr);
             attrs.add(attr);
         }else if(attr.contains(Jewelry.getInstance().getConfig().getString("absorb-percentage"))){

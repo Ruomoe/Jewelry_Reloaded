@@ -11,22 +11,25 @@ public class DefenseUtils {
         PlayerSuitCache cache = PlayerSuitCache.getPlayerCacheByName(player.getName());
         if(cache != null){
             double damage = event.getDamage();
-            if(cache.getArmor() != 0) damage = damage - damage * (cache.getArmor() / cache.getArmor() + 100);
+            //System.out.println("初始化伤害 " + damage);
+            //System.out.println("理应衰减 " + damage * (cache.getArmor() / (cache.getArmor() + 100)));
+            if(cache.getArmor() != 0) damage = damage - damage * (cache.getArmor() / (cache.getArmor() + 100));
 
+            //System.out.println("护甲衰减后伤害 " + damage);
             damage -= cache.getTakeDamage();
 
-            if(cache.getDodgeProbability() >= SuitUtils.getProbability()){
+            if(cache.getDodgeProbability() != 0 && cache.getDodgeProbability() >= SuitUtils.getProbability()){
                 player.sendMessage(MessageUtils.getMessage("dodge"));
                 damage -= SuitUtils.dodge;
             }
-            if(cache.getReflexProbability() >= SuitUtils.getProbability()){
+            if(cache.getReflexProbability() != 0 && cache.getReflexProbability() >= SuitUtils.getProbability()){
                 player.sendMessage(MessageUtils.getMessage("reflex"));
                 Entity entity = event.getDamager();
                 Damageable damageable = (Damageable) entity;
                 damageable.damage(SuitUtils.reflex,player);
                 if(entity instanceof Player) ((Player)entity).sendMessage(MessageUtils.getMessage("byReflex"));
             }
-            if(cache.getAngryProbability() >= SuitUtils.getProbability()){
+            if(cache.getAngryProbability() != 0 && cache.getAngryProbability() >= SuitUtils.getProbability()){
                 player.sendMessage(MessageUtils.getMessage("angry"));
                 double health = player.getHealth() + SuitUtils.angry;
                 if(health > player.getMaxHealth()){
