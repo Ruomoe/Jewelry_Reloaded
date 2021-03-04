@@ -20,7 +20,7 @@ public class PlayerSuitCache {
 
     private List<String> attrs;
     private String playerName;
-
+    private List<String> sources = new ArrayList<>();
     private int addDamage = 0;
     private int addHealth = 0;
     private int addForge = 0;
@@ -174,7 +174,50 @@ public class PlayerSuitCache {
             attrs.add(attr);
         }
     }
-
+    public void readAttrOther(String source, String attr){
+        if(sources.contains(source)) return;
+        else sources.add(source);
+        if(attr.contains(Jewelry.getInstance().getConfig().getString("health-name"))){
+            addHealth += SuitUtils.getHas(attr);
+            attrs.add(attr);
+        }else if(attr.contains(Jewelry.getInstance().getConfig().getString("damage-name")) && !attr.contains(Jewelry.getInstance().getConfig().getString("damage-percentage"))){
+            addDamage += SuitUtils.getHas(attr);
+            attrs.add(attr);
+        }else if(attr.contains(Jewelry.getInstance().getConfig().getString("forge-rate-name"))){
+            addForge += SuitUtils.getHas(attr);
+            attrs.add(attr);
+        }else if(attr.contains(Jewelry.getInstance().getConfig().getString("armor"))){
+            armor += SuitUtils.getHas(attr);
+            attrs.add(attr);
+        }else if(attr.contains(Jewelry.getInstance().getConfig().getString("takeDamage"))){
+            takeDamage += SuitUtils.getHas(attr);
+            attrs.add(attr);
+        }else if(attr.contains(Jewelry.getInstance().getConfig().getString("dodgeProbability"))){
+            dodgeProbability += SuitUtils.getHas(attr);
+            attrs.add(attr);
+        }else if(attr.contains(Jewelry.getInstance().getConfig().getString("reflexProbability"))){
+            reflexProbability += SuitUtils.getHas(attr);
+            attrs.add(attr);
+        }else if(attr.contains(Jewelry.getInstance().getConfig().getString("angryProbability"))){
+            angryProbability += SuitUtils.getHas(attr);
+            attrs.add(attr);
+        }else if(attr.contains(Jewelry.getInstance().getConfig().getString("absorbBoold")) && !attr.contains(Jewelry.getInstance().getConfig().getString("absorb-percentage"))){
+            absorb += SuitUtils.getHas(attr);
+            attrs.add(attr);
+        }else if(attr.contains(Jewelry.getInstance().getConfig().getString("absorb-percentage"))){
+            absorbPercentage += SuitUtils.getHas(attr);
+            attrs.add(attr);
+        }else if(attr.contains(Jewelry.getInstance().getConfig().getString("damage-percentage"))){
+            damagePercentage += SuitUtils.getHas(attr);
+            attrs.add(attr);
+        }else if(attr.contains(Jewelry.getInstance().getConfig().getString("critProbability"))){
+            critProbability += SuitUtils.getHas(attr);
+            attrs.add(attr);
+        }else if(attr.contains(Jewelry.getInstance().getConfig().getString("crit"))){
+            crit += SuitUtils.getHas(attr);
+            attrs.add(attr);
+        }
+    }
     public int getAddDamage() {
         return addDamage;
     }
@@ -242,6 +285,7 @@ public class PlayerSuitCache {
         crit = 0;
         critProbability = 0;
         damagePercentage = 0;
+        sources.clear();
     }
 
     public static void putCache(String playerName, PlayerSuitCache cache) {

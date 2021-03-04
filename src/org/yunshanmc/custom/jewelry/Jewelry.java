@@ -18,6 +18,10 @@ import org.yunshanmc.custom.collect.command.CollectCommands;
 import org.yunshanmc.custom.collect.task.PlayerCollectUpdateTask;
 import org.yunshanmc.custom.collect.utils.CollectUtils;
 import org.yunshanmc.custom.jewelry.papi.SumPapi;
+import org.yunshanmc.custom.potion.Potion;
+import org.yunshanmc.custom.potion.command.PotionCommands;
+import org.yunshanmc.custom.potion.task.PotionTick;
+import org.yunshanmc.custom.potion.utils.PotionUtils;
 import org.yunshanmc.custom.prefix.command.PrefixCommands;
 import org.yunshanmc.custom.prefix.listener.PrefixListener;
 import org.yunshanmc.custom.prefix.task.PrefixAttrUpdateTask;
@@ -48,6 +52,7 @@ public final class Jewelry extends JavaPlugin {
         Bukkit.getPluginCommand("buff").setExecutor(new BuffCommands());
         Bukkit.getPluginCommand("tj").setExecutor(new CollectCommands());
         Bukkit.getPluginCommand("mtpre").setExecutor(new PrefixCommands());
+        Bukkit.getPluginCommand("mtys").setExecutor(new PotionCommands());
         root = this.getDataFolder().getAbsolutePath();
         if (section != null)
             for (String key : section.getKeys(false))
@@ -75,9 +80,11 @@ public final class Jewelry extends JavaPlugin {
         PrefixUtils.update();
         PrefixUtils.load();
         SuitUtils.update();
+        PotionUtils.update();
         Bukkit.getScheduler().runTaskTimer(this,new BuffTimerTask(),20L,20L);
         Bukkit.getScheduler().runTaskTimer(this,new PlayerCollectUpdateTask(),20L,20L);
         Bukkit.getScheduler().runTaskTimer(this,new PrefixAttrUpdateTask(),20L,20L);
+        Bukkit.getScheduler().runTaskTimer(this, new PotionTick(),20L, 20L);
         Bukkit.getScheduler().runTaskTimer(this, CollectUtils::save,3600L,3600L);
         Bukkit.getScheduler().runTaskTimer(this, PrefixUtils::save,3600L,3600L);
         Bukkit.getScheduler().runTaskTimerAsynchronously(Jewelry.plugin,() -> {
@@ -92,6 +99,15 @@ public final class Jewelry extends JavaPlugin {
         } ,10L,10L);
         for (Player player : Bukkit.getServer().getOnlinePlayers())
             this.playerManager.handleJoin(player);
+
+        Bukkit.getConsoleSender().sendMessage(
+                "§3       __                      __                                                                                 __     __    \n" +
+                "§3      / /___  _      __ ___   / /_____ __  __   _____ __  __ _____ _____ ___   _____ _____   ___   ____   ____ _ / /_   / /___ \n" +
+                "§3 __  / // _ \\| | /| / // _ \\ / // ___// / / /  / ___// / / // ___// ___// _ \\ / ___// ___/  / _ \\ / __ \\ / __ `// __ \\ / // _ \\\n" +
+                "§3/ /_/ //  __/| |/ |/ //  __// // /   / /_/ /  (__  )/ /_/ // /__ / /__ /  __/(__  )(__  )  /  __// / / // /_/ // /_/ // //  __/\n" +
+                "§3\\____/ \\___/ |__/|__/ \\___//_//_/    \\__, /  /____/ \\__,_/ \\___/ \\___/ \\___//____//____/   \\___//_/ /_/ \\__,_//_.___//_/ \\___/ \n" +
+                "§3                                    /____/                                                                                     "
+        );
     }
 
     public void onDisable() {
