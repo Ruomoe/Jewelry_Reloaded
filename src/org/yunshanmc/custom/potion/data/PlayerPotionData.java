@@ -23,8 +23,9 @@ public class PlayerPotionData {
         while(it.hasNext()){
             Potion potion = it.next();
             int time = tickMap.get(potion);
-            if(time - 1 > 0){
-                tickMap.put(potion,time - 1);
+            if(time - 1 < 0){
+                it.remove();
+            }else{
                 if(Bukkit.getPlayer(playerName) != null && Bukkit.getPlayer(playerName).isOnline()) {
                     Player player = Bukkit.getPlayer(playerName);
                     HashMap<String, Double> attrMap = potion.getMap();
@@ -50,8 +51,7 @@ public class PlayerPotionData {
                         }
                     }
                 }
-            }else{
-                tickMap.remove(potion);
+                tickMap.put(potion,time - 1);
             }
         }
     }

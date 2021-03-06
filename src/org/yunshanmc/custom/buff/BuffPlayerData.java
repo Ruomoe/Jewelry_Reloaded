@@ -33,7 +33,7 @@ public class BuffPlayerData {
         while(it.hasNext()){
             String buffName = it.next();
             if(buffMap.get(buffName) - 1 < 0){
-                buffMap.remove(buffName);
+                it.remove();
                 buffs.remove(Buff.getBuffNameByOName(buffName));
             }else{
                 //player.sendMessage("buffName " + buffName);
@@ -54,7 +54,7 @@ public class BuffPlayerData {
                 buffPackageTime.put(packageName,buffPackageTime.get(packageName) - 1);
             }else{
                 buffPackageTime.remove(packageName);
-                buffPackages.remove(packageName);
+                packageIt.remove();
             }
         }
         for(Buff buff : buffs.values()){
